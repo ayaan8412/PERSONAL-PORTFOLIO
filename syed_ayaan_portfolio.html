@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Syed Ayaan Maheer — Portfolio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#0f172a;      /* deep navy */
+      --glass: rgba(255,255,255,0.06);
+      --glass-strong: rgba(255,255,255,0.10);
+      --muted: rgba(255,255,255,0.75);
+      --accent1: #7c3aed;  /* indigo */
+      --accent2: #06b6d4;  /* teal/cyan */
+      --neon: #ff6ec7;     /* pink neon */
+      --glass-border: rgba(255,255,255,0.08);
+      --card-shadow: 0 10px 30px rgba(2,6,23,0.55);
+      --glass-blur: 12px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.18), transparent 6%),
+                  radial-gradient(900px 400px at 90% 90%, rgba(6,182,212,0.12), transparent 6%),
+                  linear-gradient(180deg, #071024 0%, #08122a 30%, #0b1430 100%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    .bg-animation{
+      position:fixed; inset:0; z-index:0; pointer-events:none; mix-blend-mode:screen;
+      background:
+        conic-gradient(from 120deg at 50% 50%, rgba(124,58,237,0.07), rgba(6,182,212,0.06), rgba(255,110,199,0.04), rgba(124,58,237,0.07));
+      filter: blur(30px) saturate(120%);
+      animation: spin 30s linear infinite;
+      opacity:0.9;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg) } }
+
+    .container{ position:relative; z-index:5; max-width:1100px; margin:0 auto; padding:28px; }
+
+    .nav{
+      position: sticky; top:16px; z-index:10; display:flex; justify-content:center;
+      padding:10px; backdrop-filter: blur(var(--glass-blur)); border-radius:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border:1px solid var(--glass-border); box-shadow:var(--card-shadow);
+      margin:12px auto; max-width:1100px;
+    }
+    .nav-inner{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:6px 12px; }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .logo{
+      width:52px; height:52px; border-radius:12px; display:grid; place-items:center;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color:white; font-weight:700; box-shadow: 0 8px 24px rgba(7,10,30,0.6);
+    }
+    .nav-links{ display:flex; gap:14px; align-items:center; }
+    .nav-links a{
+      color:var(--muted); text-decoration:none; font-weight:600; font-size:14px; padding:8px 10px; border-radius:10px;
+      transition: all 200ms ease;
+    }
+    .nav-links a:hover{ color:white; transform:translateY(-3px); text-shadow: 0 6px 20px rgba(124,58,237,0.18); }
+    .cta{
+      padding:8px 12px; border-radius:12px; background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      box-shadow: 0 8px 30px rgba(124,58,237,0.18); border:1px solid rgba(255,255,255,0.06);
+      color:white; font-weight:700; text-decoration:none; transition: transform .18s;
+      display:inline-block;
+    }
+    .cta:hover{ transform:translateY(-4px); filter:brightness(1.05) drop-shadow(0 6px 30px rgba(6,182,212,0.12)); }
+
+    .hero{ display:flex; gap:28px; align-items:center; margin-top:24px; margin-bottom:18px; }
+    .hero-left{ flex:1; }
+    h1{ font-size:40px; margin:0; line-height:1.02; letter-spacing:-0.6px; font-weight:800; }
+    .gradient-text{
+      background: linear-gradient(90deg, #fff 0%, #dfe7ff 30%, #bfefff 60%, #ffd3f1 100%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow: 0 8px 30px rgba(124,58,237,0.10);
+    }
+    p.lead{ color:rgba(230,238,248,0.86); margin-top:12px; margin-bottom:16px; font-size:16px; }
+
+    .profile-card{
+      width:320px; min-width:240px; border-radius:16px; padding:18px; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border:1px solid var(--glass-border); box-shadow: 0 12px 40px rgba(2,6,23,0.6); backdrop-filter: blur(var(--glass-blur));
+      transform-origin:center; transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .profile-card:hover{ transform: translateY(-8px) scale(1.01); box-shadow: 0 18px 60px rgba(2,6,23,0.7); }
+    .avatar{ width:86px; height:86px; border-radius:18px; display:grid; place-items:center; font-weight:800; font-size:28px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)); border:1px solid rgba(255,255,255,0.04); color:white;
+      box-shadow: 0 8px 24px rgba(124,58,237,0.12);
+    }
+    .small{ font-size:13px; color:rgba(230,238,248,0.8); margin-top:6px }
+    .tag{ display:inline-block; padding:6px 10px; margin:6px 6px 0 0; border-radius:999px; background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); font-size:13px; }
+
+    section.block{ margin:28px 0; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:20px; border:1px solid rgba(255,255,255,0.03); box-shadow: 0 8px 30px rgba(2,6,23,0.5); backdrop-filter: blur(var(--glass-blur)); }
+    .section-title{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+    .section-title h3{ margin:0; font-size:18px; letter-spacing:-0.2px; font-weight:700; }
+    .section-sub{ color:rgba(230,238,248,0.6); font-size:13px; }
+
+    .grid-3{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+    .card{
+      padding:16px; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03); transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{ transform:translateY(-8px); box-shadow: 0 14px 40px rgba(7,10,30,0.6); }
+
+    .project-tags{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;}
+    .chip{ padding:6px 8px; border-radius:999px; font-size:12px; border:1px solid rgba(255,255,255,0.03); background:rgba(255,255,255,0.02); }
+
+    .neon-border{ box-shadow: 0 0 12px rgba(124,58,237,0.12), inset 0 0 18px rgba(6,182,212,0.03); border:1px solid rgba(124,58,237,0.16); }
+
+    .form-input{ width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:var(--muted); }
+    .form-input:focus{ outline:none; box-shadow:0 8px 30px rgba(124,58,237,0.08); border:1px solid rgba(124,58,237,0.22); color:white; }
+
+    footer{ text-align:center; color:rgba(230,238,248,0.6); margin:44px 0 80px 0; font-size:13px; }
+
+    .reveal{ opacity:0; transform: translateY(18px) scale(.995); transition: all 600ms cubic-bezier(.2,.9,.25,1); will-change:transform,opacity; }
+    .reveal-visible{ opacity:1; transform: translateY(0) scale(1); }
+
+    @media (max-width:900px){
+      .hero{ flex-direction:column-reverse; align-items:flex-start; gap:18px; }
+      .profile-card{ width:100% }
+      .nav-inner{padding:8px}
+      .container{padding:18px}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation" aria-hidden="true"></div>
+
+  <div class="nav container" role="navigation" aria-label="Main">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="logo">AM</div>
+        <div>
+          <div style="font-weight:700">Syed Ayaan Maheer</div>
+          <div style="font-size:12px;color:rgba(230,238,248,0.7)">Full-Stack Developer · Data Analyst</div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#certs">Certifications</a>
+        <a href="#contact" class="cta" style="margin-left:6px">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" role="main">
+    <header class="hero" id="top">
+      <div class="hero-left">
+        <h1 class="reveal"><span class="gradient-text">Hi — I'm Syed Ayaan Maheer</span></h1>
+        <p class="lead reveal">Full-Stack Developer & Data Analyst. I build responsive web apps and interactive dashboards, and I love turning data into clear, actionable stories.</p>
+
+        <div style="display:flex; gap:12px; margin-top:12px" class="reveal">
+          <a href="#projects" class="cta">View Projects</a>
+        </div>
+
+        <div style="margin-top:18px" class="reveal">
+          <div class="card" style="display:flex; gap:12px; align-items:center; padding:12px 14px; max-width:520px">
+            <div style="width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--accent1),var(--accent2)); display:grid; place-items:center; color:white; font-weight:800">A</div>
+            <div>
+              <div style="font-weight:700">BCA (Data Science)</div>
+              <div style="font-size:13px;color:rgba(230,238,248,0.7)">Soundarya Institute of Management & Science</div>
+            </div>
+            <div style="margin-left:auto; text-align:right">
+              <div style="font-size:12px;color:rgba(230,238,248,0.8)">Bengaluru North, Karnataka</div>
+              <div style="font-size:12px;color:rgba(230,238,248,0.7)">maheermahee0786@gmail.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="profile-card reveal neon-border">
+        <div style="display:flex; gap:12px; align-items:center">
+          <div class="avatar">A</div>
+          <div>
+            <div style="font-weight:800">Syed Ayaan Maheer</div>
+            <div class="small">Full-Stack Developer & Data Analyst</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <div style="font-size:13px; color:rgba(230,238,248,0.7)">Top Skills</div>
+          <div style="margin-top:8px; display:flex; flex-wrap:wrap">
+            <span class="tag">Data Analysis</span>
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Python</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:8px; margin-top:14px">
+          <a href="#experience" class="card" style="flex:1; text-align:center; text-decoration:none; color:inherit">Experience</a>
+          <a href="#projects" class="card" style="flex:1; text-align:center; text-decoration:none; color:inherit">Projects</a>
+        </div>
+      </aside>
+    </header>
+
+    <section id="about" class="block reveal" aria-labelledby="about-title">
+      <div class="section-title">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style="opacity:.95"><path d="M12 2v20" stroke="url(#g1)" stroke-width="1.6" stroke-linecap="round"/><defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs></svg>
+        <div>
+          <h3 id="about-title">About</h3>
+          <div class="section-sub">Who I am & what I create</div>
+        </div>
+      </div>
+
+      <p style="color:rgba(230,238,248,0.86); line-height:1.6">
+        I am an aspiring Full-Stack Developer and Data Analyst currently pursuing BCA (Data Science). I enjoy building responsive web applications and creating dashboards that help teams make data-driven decisions.
+        I have interned as a Python developer and assisted in building frontend features for responsive apps.
+      </p>
+    </section>
+
+    <section id="skills" class="block reveal">
+      <div class="section-title">
+        <h3>Skills</h3>
+        <div class="section-sub">Technologies & tools I use</div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card neon-border">
+          <strong>Frontend</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">HTML, CSS, JavaScript, React (Basics)</div>
+        </div>
+
+        <div class="card">
+          <strong>Backend & Data</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">Python (Flask/Django basics), MySQL, APIs</div>
+        </div>
+
+        <div class="card">
+          <strong>Data Analytics</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">Power BI, Data Visualization, Data Analysis</div>
+        </div>
+
+        <div class="card">
+          <strong>Tools</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">Git/GitHub, VS Code, Google Colab</div>
+        </div>
+
+        <div class="card">
+          <strong>AI & Others</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">GenAI, Prompt Engineering, IBM Watson Studios</div>
+        </div>
+
+        <div class="card">
+          <strong>Languages</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">English, Hindi, Kannada</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="block reveal">
+      <div class="section-title">
+        <h3>Experience</h3>
+        <div class="section-sub">Internships & relevant work</div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="card neon-border">
+          <div style="display:flex; justify-content:space-between;">
+            <div>
+              <strong>Python Developer (Internship)</strong>
+              <div style="font-size:13px; color:rgba(230,238,248,0.75)">Siddhrans Technologies — Backend Python modules & automation</div>
+            </div>
+            <div style="color:rgba(230,238,248,0.65); font-size:13px">Jul 2025 – Oct 2025</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex; justify-content:space-between;">
+            <div>
+              <strong>Full-Stack Developer (Internship)</strong>
+              <div style="font-size:13px; color:rgba(230,238,248,0.75)">Codec Technologies India — Assisted building responsive web apps</div>
+            </div>
+            <div style="color:rgba(230,238,248,0.65); font-size:13px">Mar 2025 – Aug 2025</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="block reveal">
+      <div class="section-title">
+        <h3>Education</h3>
+        <div class="section-sub">Academic background</div>
+      </div>
+
+      <div class="grid-3" style="grid-template-columns:1fr">
+        <div class="card">
+          <strong>BCA (Data Science)</strong>
+          <div style="font-size:13px; color:rgba(230,238,248,0.75)">Soundarya Institute of Management & Science — 2023 – Present</div>
+        </div>
+
+        <div class="card">
+          <strong>Soundarya Composite PU College</strong>
+          <div style="font-size:13px; color:rgba(230,238,248,0.75)">Commerce (11th & 12th) — 2021 – 2023</div>
+        </div>
+
+        <div class="card">
+          <strong>Shree Ram Public School (CBSE)</strong>
+          <div style="font-size:13px; color:rgba(230,238,248,0.75)">Class 10 — 2020 – 2021</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="block reveal">
+      <div class="section-title">
+        <h3>Projects</h3>
+        <div class="section-sub">Selected projects & highlights</div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card neon-border">
+          <strong>Personal Portfolio</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">A modern responsive portfolio built with HTML, CSS and JS — animations & hover effects.</div>
+          <div class="project-tags">
+            <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <strong>Interactive Sales Dashboard</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">Visualization dashboard with filters and charts to analyze sales performance.</div>
+          <div class="project-tags">
+            <span class="chip">Power BI</span><span class="chip">Data Viz</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <strong>AI Chatbot Assistant</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">Conversational AI bot using NLP and Python.</div>
+          <div class="project-tags">
+            <span class="chip">Python</span><span class="chip">AI</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <strong>Weather Forecast App</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">Live weather web app using OpenWeather API.</div>
+          <div class="project-tags">
+            <span class="chip">JavaScript</span><span class="chip">API</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <strong>Task Management App</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">Organize and track tasks with an intuitive UI.</div>
+          <div class="project-tags">
+            <span class="chip">React</span><span class="chip">LocalStorage</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <strong>Finance Tracker</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">Visual finance management system with charts.</div>
+          <div class="project-tags">
+            <span class="chip">Power BI</span><span class="chip">Python</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <strong>Student DB Management</strong>
+          <div style="margin-top:8px;color:rgba(230,238,248,0.75)">CRUD application for student records using Python basics (Flask).</div>
+          <div class="project-tags">
+            <span class="chip">Python</span><span class="chip">Flask</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certs" class="block reveal">
+      <div class="section-title">
+        <h3>Certifications</h3>
+        <div class="section-sub">Selected credentials & simulations</div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">Deloitte Technology Consulting Virtual Experience Program (Forage)</div>
+        <div class="card">Deloitte Australia - Data Analytics & Risk Advisory Simulation</div>
+        <div class="card neon-border">Microsoft Azure Fundamentals (AZ-900)</div>
+        <div class="card">IBM AI Engineering Foundations Specialization</div>
+        <div class="card">IBM Watson Studios</div>
+        <div class="card">IBM Business Intelligence</div>
+        <div class="card">Google Analytics & Data Visualization Essentials</div>
+        <div class="card">GenAI Powered Data Analytics Job Simulation — Tata Group</div>
+        <div class="card">Data Science Job Simulation — British Airways</div>
+        <div class="card">Cybersecurity Management Job Simulation — ANZ Australia</div>
+        <div class="card">Cybersecurity Analyst Job Simulation — Tata Group</div>
+        <div class="card">Introduction to Prompt Engineering for Generative AI</div>
+        <div class="card">AWS APAC — Solutions Architecture Virtual Job Simulation</div>
+        <div class="card">Walmart USA — Advanced Software Engineering Job Simulation</div>
+        <div class="card">Google Cloud Foundations Training (Cloud Essentials)</div>
+        <div class="card">Python for Data Science & AI (Coursera/IBM)</div>
+        <div class="card">Web Development Foundations — HTML, CSS, JavaScript (LinkedIn Learning)</div>
+        <div class="card">Git & GitHub Version Control (LinkedIn Learning)</div>
+        <div class="card">Java Programming Essentials — Oracle Academy</div>
+        <div class="card">Fundamentals of React & Frontend Frameworks (LinkedIn Learning)</div>
+      </div>
+    </section>
+
+    <section id="contact" class="block reveal">
+      <div class="section-title">
+        <h3>Contact</h3>
+        <div class="section-sub">Let's build something — reach out</div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 360px; gap:18px;">
+        <form id="contact-form" class="card" aria-label="Contact form">
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <input class="form-input" id="name" placeholder="Your name" required />
+            <input class="form-input" id="email" placeholder="Your email" type="email" required />
+            <textarea class="form-input" id="message" placeholder="Message" rows="6" required></textarea>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <button id="send-btn" type="submit" class="cta" style="background: linear-gradient(90deg,var(--neon),var(--accent2)); border:none; cursor:pointer">Send Message via WhatsApp</button>
+              <div id="form-status" style="color:rgba(230,238,248,0.8); font-size:13px"></div>
+            </div>
+          </div>
+        </form>
+
+        <aside class="card neon-border">
+          <div style="font-weight:700">Contact details</div>
+          <div style="margin-top:8px; color:rgba(230,238,248,0.75)">
+            Email: <a href="mailto:maheermahee0786@gmail.com" style="color:inherit; text-decoration:underline">maheermahee0786@gmail.com</a><br/>
+            Phone: <a href="tel:+919380344919" style="color:inherit; text-decoration:underline">+91 93803 44919</a><br/>
+            LinkedIn: <a href="https://www.linkedin.com/in/syed-ayaan-maheer-979100287" target="_blank" style="color:inherit; text-decoration:underline">linkedin.com/in/syed-ayaan-maheer-979100287</a>
+          </div>
+
+          <div style="margin-top:18px">
+            <div style="font-weight:700">Quick info</div>
+            <div style="margin-top:8px; color:rgba(230,238,248,0.75)">BCA (Data Science) • Internships in Data Analysis & FullStack • Open to Work, internships & freelance projects.</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Syed Ayaan Maheer — Built with curiosity & care💛.
+    </footer>
+  </main>
+
+  <script>
+    // Year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('reveal-visible');
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // CONTACT FORM → SEND TO WHATSAPP
+    const contactForm = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
+
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('message').value.trim();
+
+      if (!name || !email || !msg) {
+        status.textContent = 'Please fill all fields.';
+        status.style.color = '#ffb4c6';
+        return;
+      }
+
+      // Your WhatsApp number (with country code, no +, no spaces)
+      const whatsappNumber = '919380344919';
+
+      // Message text for WhatsApp
+      const text = `New contact from your portfolio:
+
+Name: ${name}
+Email: ${email}
+Message: ${msg}`;
+
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+
+      status.textContent = 'Opening WhatsApp…';
+      status.style.color = '#bfefff';
+
+      // Open WhatsApp (app or web)
+      window.location.href = url;
+    });
+
+    // Background sheen follow mouse
+    const sheen = document.querySelector('.bg-animation');
+    window.addEventListener('mousemove', (ev) => {
+      const x = ev.clientX / window.innerWidth - 0.5;
+      const y = ev.clientY / window.innerHeight - 0.5;
+      sheen.style.transform = `rotate(${x*6}deg) translate(${x*20}px, ${y*10}px)`;
+    }, { passive:true });
+
+    // Add focus outline when using keyboard
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
+  </script>
+</body>
+</html>
